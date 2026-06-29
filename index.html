@@ -615,21 +615,16 @@
     }
 
     /* ─── LOGO ─── */
-    .tb-logo {
-      height: 30px;
-      width: 30px;
-      border-radius: 6px;
-      display: block;
+.title-lockup {
+      display: flex;
+      align-items: center;
+      gap: 2px;
     }
 
-    .hero-logo {
-      margin-bottom: 20px;
-    }
-
-    .hero-logo img {
-      width: 88px;
-      height: 88px;
-      border-radius: 18px;
+    .title-n-img {
+      height: clamp(72px, 17vw, 182px);
+      width: auto;
+      border-radius: 10px;
       display: block;
     }
 
@@ -873,19 +868,21 @@
         <div class="blink-dot"></div>
         <span>TRANSMISSION INCOMING</span>
       </div>
-      <span class="tb-mid"><img src="/favicon.png" alt="NEXIATA" class="tb-logo"></span>
+      <span class="tb-mid">NEXIATA // EST. 2026</span>
       <span id="clock">00:00:00 UTC</span>
     </div>
 
     <!-- HERO -->
     <div class="hero">
-      <div class="hero-logo"><img src="/favicon.png" alt="NEXIATA"></div>
       <div class="eye-brow">MISSION STATUS: STANDBY</div>
 
       <div class="hud-frame">
         <div class="c1"></div><div class="c2"></div>
         <div class="c3"></div><div class="c4"></div>
-        <span class="title" data-text="NEXIATA">NEXIATA</span>
+        <div class="title-lockup">
+          <img src="/favicon.png" alt="N" class="title-n-img">
+          <span class="title" data-text="EXIATA">EXIATA</span>
+        </div>
       </div>
 
       <div class="sub-title">Web Engineering // Coming Soon</div>
