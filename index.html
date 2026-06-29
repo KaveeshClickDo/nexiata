@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Primary SEO -->
-  <title>NEXIATA: Web Engineering Agency | Launching August 1, 2026</title>
-  <meta name="description" content="NEXIATA is a premium web engineering agency launching August 1, 2026. Business websites, portfolios, e-commerce stores, admin dashboards, API integrations and more.">
+  <title>NEXIATA: Web Engineering Agency</title>
+  <meta name="description" content="NEXIATA is a premium web engineering agency. Business websites, portfolios, e-commerce stores, admin dashboards, API integrations and more.">
   <meta name="keywords" content="web engineering, business websites, portfolio website, e-commerce development, admin dashboard, website redesign, API integration, web development agency, nexiata">
   <meta name="author" content="NEXIATA">
   <meta name="robots" content="index, follow">
@@ -16,19 +16,20 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://nexiata.com/">
   <meta property="og:site_name" content="NEXIATA">
-  <meta property="og:title" content="NEXIATA: Web Engineering Agency | Launching August 1, 2026">
-  <meta property="og:description" content="Premium web engineering agency launching August 1, 2026. Business websites, portfolios, e-commerce, dashboards and more.">
-  <meta property="og:image" content="https://nexiata.com/og-image.svg">
+  <meta property="og:title" content="NEXIATA: Web Engineering Agency">
+  <meta property="og:description" content="Premium web engineering agency. Business websites, portfolios, e-commerce, dashboards and more.">
+  <meta property="og:image" content="https://nexiata.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="NEXIATA: Web Engineering Agency, Launching August 1, 2026">
+  <meta property="og:image:alt" content="NEXIATA: Web Engineering Agency">
   <meta property="og:locale" content="en_US">
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="NEXIATA: Web Engineering Agency | Launching August 1, 2026">
-  <meta name="twitter:description" content="Premium web engineering agency launching August 1, 2026. Business websites, portfolios, e-commerce, dashboards and more.">
-  <meta name="twitter:image" content="https://nexiata.com/og-image.svg">
+  <meta name="twitter:title" content="NEXIATA: Web Engineering Agency">
+  <meta name="twitter:description" content="Premium web engineering agency. Business websites, portfolios, e-commerce, dashboards and more.">
+  <meta name="twitter:image" content="https://nexiata.com/og-image.png">
   <meta name="twitter:image:alt" content="NEXIATA: Web Engineering Agency">
 
   <!-- Favicon & PWA -->
@@ -40,10 +41,10 @@
   <meta name="apple-mobile-web-app-title" content="NEXIATA">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <!-- Fonts -->
+  <!-- Fonts (only the weights actually used: Barlow 800/900, Space Grotesk 400/500, JetBrains Mono 400) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800;900&family=Space+Grotesk:wght@400;500&family=JetBrains+Mono&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -282,7 +283,6 @@
     }
 
     /* corner brackets */
-    .hud-frame::before, .hud-frame::after,
     .hud-frame .c1, .hud-frame .c2, .hud-frame .c3, .hud-frame .c4 {
       content: '';
       position: absolute;
@@ -295,8 +295,6 @@
     .hud-frame .c2 { top:0;    right:0; border-width: 2px 2px 0 0; }
     .hud-frame .c3 { bottom:0; left:0;  border-width: 0 0 2px 2px; }
     .hud-frame .c4 { bottom:0; right:0; border-width: 0 2px 2px 0; }
-    .hud-frame::before { display:none; }
-    .hud-frame::after  { display:none; }
 
     .title {
       font-family: 'Barlow Condensed', sans-serif;
@@ -459,6 +457,16 @@
     .notify-row {
       display: flex;
       width: 100%;
+    }
+
+    /* Honeypot — visually removed but still in the DOM for bots to trip on */
+    .hp-field {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
     }
 
     .notify-input {
@@ -775,8 +783,7 @@
     /* ─── REDUCED MOTION ─── */
     @media (prefers-reduced-motion: reduce) {
       .title::before, .title::after { animation: none; }
-      .blink-dot, .colon-blink, .breathe { animation: none; }
-      .glow, .glow-2 { animation: none; }
+      .blink-dot, .cd-colon, .glow, .glow-2 { animation: none; }
     }
 
   </style>
@@ -892,9 +899,13 @@
       <div class="notify-wrap">
         <div class="notify-lbl">Get notified on launch</div>
         <div class="notify-row">
-          <input class="notify-input" id="n-email" type="email" placeholder="your@email.com">
+          <input class="notify-input" id="n-email" type="email" placeholder="your@email.com"
+            autocomplete="email" maxlength="254">
           <button class="notify-btn" onclick="doNotify()">NOTIFY ME</button>
         </div>
+        <!-- Honeypot: hidden from humans, bots tend to fill it. Submissions with this set are dropped. -->
+        <input type="text" id="n-company" name="company" tabindex="-1" autocomplete="off"
+          aria-hidden="true" class="hp-field">
         <div class="notify-msg" id="n-msg"></div>
       </div>
     </div>
@@ -1051,6 +1062,9 @@
     /* ─── NOTIFY ─── */
     let notifySubmitted = false;
 
+    // Timestamp the moment the page is ready — used to reject instant bot submits.
+    const pageReadyAt = Date.now();
+
     async function doNotify() {
       if (notifySubmitted) return;
 
@@ -1058,6 +1072,7 @@
       const btn     = document.querySelector('.notify-btn');
       const msg     = document.getElementById('n-msg');
       const email   = emailEl.value.trim();
+      const company = document.getElementById('n-company').value; // honeypot
 
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         msg.style.color = 'var(--accent-2)';
@@ -1075,7 +1090,7 @@
         const res = await fetch('/api/notify', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email }),
+          body: JSON.stringify({ email, company, elapsed: Date.now() - pageReadyAt }),
         });
 
         if (res.ok) {

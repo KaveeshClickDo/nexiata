@@ -1,0 +1,36 @@
+# NEXIATA
+
+> NEXIATA is a premium web engineering agency that designs and builds fast,
+> secure, modern websites and web applications. Currently in pre-launch; the
+> public site goes live on 1 August 2026.
+
+## About
+
+- Type: Web engineering / web development agency
+- Status: Coming soon (launch 1 August 2026)
+- Contact: hello@nexiata.com
+- Website: https://nexiata.com
+
+## Services
+
+- Web products: Business websites, portfolio websites, landing pages, e-commerce stores, progressive web apps, membership websites
+- Web applications: Admin dashboards, SaaS applications, authentication systems, blog & CMS integration, real-time web apps, custom portals & intranets
+- Integrations & performance: API integration, payment integration, performance optimization
+- Code & maintenance: Website redesign, website maintenance, AI/vibe code cleanup, AI code security audit, bug fixing, code review & best practices
+
+## Tech stack
+
+- Frontend: HTML5, CSS3, JavaScript (ES6+), TypeScript, React.js, Next.js, Tailwind CSS, Bootstrap
+- Backend: Node.js, Express.js, REST APIs, Next.js server actions, Go
+- Databases: MongoDB, PostgreSQL, MySQL, Supabase, Neon, Firebase Firestore
+- Auth: JWT, OAuth (Google), Clerk, Firebase Auth, Supabase Auth
+- Cloud & hosting: Vercel, Netlify, Firebase Hosting, Cloudflare, Render, Railway
+
+## Capabilities
+
+- Mobile-friendly responsive design
+- Technical SEO and Core Web Vitals optimization
+- Fast loading speed and image optimization
+- Secure authentication
+- Contact forms, Google Maps, WhatsApp chat, social media and analytics integrations
+- Clean, maintainable, scalable architecture on reliable cloud hosting
