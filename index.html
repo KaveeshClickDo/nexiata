@@ -669,6 +669,109 @@
       .cd-colon { padding: 8px 0 6px; }
     }
 
+    /* ─── SERVICE CATEGORY DIVIDERS ─── */
+    .svc-cat {
+      grid-column: 1 / -1;
+      background: var(--bg);
+      padding: 9px 22px 9px 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--accent);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      border-left: 2px solid rgba(245,197,24,0.45);
+    }
+
+    /* ─── FEATURES ─── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      background: var(--border);
+      gap: 1px;
+      border: 1px solid var(--border);
+    }
+
+    .feat {
+      background: var(--bg-2);
+      padding: 13px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: background 0.18s;
+      position: relative;
+    }
+
+    .feat::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0%; height: 1px;
+      background: var(--green);
+      transition: width 0.3s ease;
+    }
+
+    .feat:hover { background: var(--surface); }
+    .feat:hover::after { width: 100%; }
+
+    .feat-check {
+      font-size: 10px;
+      color: var(--green);
+      flex-shrink: 0;
+    }
+
+    .feat-name {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text);
+      letter-spacing: 0.3px;
+    }
+
+    /* ─── TECH STACK ─── */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      background: var(--border);
+      gap: 1px;
+      border: 1px solid var(--border);
+    }
+
+    .stack-cat {
+      background: var(--bg-2);
+      padding: 18px 20px 24px;
+    }
+
+    .stack-cat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--accent);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stack-item {
+      font-size: 11px;
+      color: var(--text-dim);
+      padding: 4px 0;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stack-item::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 3px;
+      background: var(--accent);
+      opacity: 0.4;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
     /* ─── REDUCED MOTION ─── */
     @media (prefers-reduced-motion: reduce) {
       .title::before, .title::after { animation: none; }
@@ -805,6 +908,24 @@
       <div class="services-grid" id="svc-grid"></div>
     </div>
 
+    <!-- FEATURES -->
+    <div class="services-wrap">
+      <div class="sec-head">
+        <div class="sec-tag">Mission Parameters</div>
+        <div class="sec-line"></div>
+      </div>
+      <div class="features-grid" id="feat-grid"></div>
+    </div>
+
+    <!-- TECH STACK -->
+    <div class="services-wrap">
+      <div class="sec-head">
+        <div class="sec-tag">Technology Stack</div>
+        <div class="sec-line"></div>
+      </div>
+      <div class="stack-grid" id="stack-grid"></div>
+    </div>
+
     <!-- BOTTOM BAR -->
     <div class="bot-bar">
       <span>© 2026 NEXIATA — ALL RIGHTS RESERVED</span>
@@ -818,29 +939,80 @@
 
   <script>
     /* ─── SERVICES ─── */
-    const SERVICES = [
-      'Business Websites',
-      'Portfolio Websites',
-      'Landing Pages',
-      'E-commerce Websites',
-      'Admin Dashboards',
-      'Blog & CMS Integration',
-      'Website Redesign',
-      'API Integration',
-      'Performance Optimization',
-      'Website Maintenance',
+    const SERVICE_GROUPS = [
+      {
+        cat: 'WEB PRODUCTS',
+        items: ['Business Websites', 'Portfolio Websites', 'Landing Pages', 'E-commerce Websites', 'Progressive Web Apps', 'Membership Websites'],
+      },
+      {
+        cat: 'WEB APPLICATIONS',
+        items: ['Admin Dashboards', 'SaaS Applications', 'Authentication Systems', 'Blog & CMS Integration', 'Real-Time Web Apps', 'Custom Portals & Intranets'],
+      },
+      {
+        cat: 'INTEGRATIONS & PERFORMANCE',
+        items: ['API Integration', 'Payment Integration', 'Performance Optimization'],
+      },
+      {
+        cat: 'CODE & MAINTENANCE',
+        items: ['Website Redesign', 'Website Maintenance', 'AI / Vibe Code Cleanup', 'AI Code Security Audit', 'Bug Fixing', 'Code Review & Best Practices'],
+      },
     ];
 
     const grid = document.getElementById('svc-grid');
-    SERVICES.forEach((s, i) => {
-      const n = String(i + 1).padStart(2, '0');
+    let svcCount = 0;
+    SERVICE_GROUPS.forEach(group => {
+      const cat = document.createElement('div');
+      cat.className = 'svc-cat';
+      cat.textContent = group.cat;
+      grid.appendChild(cat);
+      group.items.forEach(name => {
+        svcCount++;
+        const n = String(svcCount).padStart(2, '0');
+        const el = document.createElement('div');
+        el.className = 'svc';
+        el.innerHTML =
+          `<span class="svc-n">${n}</span>` +
+          `<span class="svc-name">${name}</span>` +
+          `<span class="svc-arrow">▶</span>`;
+        grid.appendChild(el);
+      });
+    });
+
+    /* ─── FEATURES ─── */
+    const FEATURES = [
+      'Mobile-Friendly Design',    'Technical SEO Optimization',  'Core Web Vitals Optimization',
+      'Image Optimization',        'Performance Optimization',     'Fast Loading Speed',
+      'Secure Authentication',     'Contact Forms',                'Google Maps Integration',
+      'WhatsApp Chat Integration', 'Social Media Integration',     'Newsfeed Integration',
+      'Subscription Integration',  'Client-Friendly Advertisements','Analytics Setup',
+      'Clean & Maintainable Code', 'Professional Full-Stack Development',
+      'Reliable Cloud Hosting',    'Scalable Architecture',
+    ];
+
+    const featGrid = document.getElementById('feat-grid');
+    FEATURES.forEach(name => {
       const el = document.createElement('div');
-      el.className = 'svc';
-      el.innerHTML =
-        `<span class="svc-n">${n}</span>` +
-        `<span class="svc-name">${s}</span>` +
-        `<span class="svc-arrow">▶</span>`;
-      grid.appendChild(el);
+      el.className = 'feat';
+      el.innerHTML = `<span class="feat-check">✔</span><span class="feat-name">${name}</span>`;
+      featGrid.appendChild(el);
+    });
+
+    /* ─── TECH STACK ─── */
+    const STACK = [
+      { cat: 'FRONTEND',      items: ['HTML5 / CSS3', 'JavaScript ES6+', 'TypeScript', 'React.js', 'Next.js', 'Tailwind CSS', 'Bootstrap'] },
+      { cat: 'BACKEND',       items: ['Node.js', 'Express.js', 'REST API', 'Next.js Actions', 'Go'] },
+      { cat: 'DATABASES',     items: ['MongoDB', 'PostgreSQL', 'MySQL', 'Supabase', 'Neon PostgreSQL', 'Firebase Firestore'] },
+      { cat: 'AUTH',          items: ['JWT Authentication', 'OAuth / Google Login', 'Clerk / Firebase Auth', 'Supabase Auth'] },
+      { cat: 'CLOUD & HOSTING', items: ['Vercel', 'Netlify', 'Firebase Hosting', 'Cloudflare', 'Render', 'Railway'] },
+    ];
+
+    const stackGrid = document.getElementById('stack-grid');
+    STACK.forEach(({ cat, items }) => {
+      const el = document.createElement('div');
+      el.className = 'stack-cat';
+      el.innerHTML = `<div class="stack-cat-label">${cat}</div>` +
+        items.map(i => `<div class="stack-item">${i}</div>`).join('');
+      stackGrid.appendChild(el);
     });
 
     /* ─── CLOCK ─── */
