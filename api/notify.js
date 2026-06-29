@@ -4,18 +4,18 @@ const thankYouHtml = () => `<!DOCTYPE html>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
 </head>
-<body style="margin:0;padding:0;background:#04040A;">
-<table width="100%" cellpadding="0" cellspacing="0" style="background:#04040A;padding:40px 16px;">
+<body style="margin:0;padding:0;background:#070B14;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#070B14;padding:40px 16px;">
   <tr>
     <td align="center">
-      <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#04040A;border:1px solid #18182A;">
+      <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#070B14;border:1px solid #1E293B;">
 
         <!-- TOP BAR -->
         <tr>
-          <td style="padding:14px 28px;border-bottom:1px solid #18182A;">
+          <td style="padding:14px 28px;border-bottom:1px solid #1E293B;">
             <table width="100%" cellpadding="0" cellspacing="0"><tr>
-              <td style="font-family:'Courier New',Courier,monospace;font-size:9px;color:#454560;letter-spacing:3px;text-transform:uppercase;">SYS://NEXIATA.COM</td>
-              <td align="right" style="font-family:'Courier New',Courier,monospace;font-size:9px;color:#454560;letter-spacing:2px;text-transform:uppercase;">STATUS: CONFIRMED</td>
+              <td style="font-family:'Courier New',Courier,monospace;font-size:9px;color:#4A5568;letter-spacing:3px;text-transform:uppercase;">SYS://NEXIATA.COM</td>
+              <td align="right" style="font-family:'Courier New',Courier,monospace;font-size:9px;color:#4A5568;letter-spacing:2px;text-transform:uppercase;">STATUS: CONFIRMED</td>
             </tr></table>
           </td>
         </tr>
@@ -23,35 +23,35 @@ const thankYouHtml = () => `<!DOCTYPE html>
         <!-- HERO -->
         <tr>
           <td align="center" style="padding:48px 28px 36px;">
-            <p style="font-family:'Courier New',Courier,monospace;font-size:11px;color:#FF3A00;letter-spacing:6px;text-transform:uppercase;margin:0 0 20px 0;">TRANSMISSION RECEIVED</p>
+            <p style="font-family:'Courier New',Courier,monospace;font-size:11px;color:#7C3AED;letter-spacing:6px;text-transform:uppercase;margin:0 0 20px 0;">TRANSMISSION RECEIVED</p>
             <h1 style="font-family:'Arial Black',Impact,Arial,sans-serif;font-size:64px;font-weight:900;color:#E8E8F0;letter-spacing:-2px;margin:0;text-transform:uppercase;line-height:1;">NEXIATA</h1>
-            <p style="font-family:'Courier New',Courier,monospace;font-size:10px;color:#454560;letter-spacing:6px;text-transform:uppercase;margin:12px 0 0 0;">WEB ENGINEERING</p>
+            <p style="font-family:'Courier New',Courier,monospace;font-size:10px;color:#4A5568;letter-spacing:6px;text-transform:uppercase;margin:12px 0 0 0;">WEB ENGINEERING</p>
           </td>
         </tr>
 
         <!-- DIVIDER -->
-        <tr><td style="padding:0 28px;"><div style="height:1px;background:#18182A;"></div></td></tr>
+        <tr><td style="padding:0 28px;"><div style="height:1px;background:#1E293B;"></div></td></tr>
 
         <!-- MESSAGE -->
         <tr>
           <td style="padding:36px 28px 28px;">
-            <p style="font-family:'Courier New',Courier,monospace;font-size:9px;color:#F5C518;letter-spacing:3px;text-transform:uppercase;margin:0 0 18px 0;border:1px solid rgba(245,197,24,0.3);display:inline-block;padding:4px 10px;">&#9658;&nbsp; MISSION UPDATE</p>
+            <p style="font-family:'Courier New',Courier,monospace;font-size:9px;color:#06B6D4;letter-spacing:3px;text-transform:uppercase;margin:0 0 18px 0;border:1px solid rgba(6,182,212,0.3);display:inline-block;padding:4px 10px;">&#9658;&nbsp; MISSION UPDATE</p>
             <h2 style="font-family:'Arial Black',Impact,Arial,sans-serif;font-size:30px;font-weight:900;color:#E8E8F0;margin:0 0 14px 0;text-transform:uppercase;line-height:1.15;">YOU'RE ON THE LIST.</h2>
-            <p style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#9898B0;line-height:1.85;margin:0 0 28px 0;">
+            <p style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#8B9CB0;line-height:1.85;margin:0 0 28px 0;">
               Signal logged. When NEXIATA goes live on
-              <span style="color:#F5C518;font-weight:600;">August 1, 2026</span>,
+              <span style="color:#06B6D4;font-weight:600;">August 1, 2026</span>,
               you'll be the first to know. We're building something sharp &mdash; stay tuned.
             </p>
 
             <!-- LAUNCH DATE BOX -->
-            <table cellpadding="0" cellspacing="0" style="background:#0F0F1A;border:1px solid #18182A;width:100%;margin-bottom:4px;">
+            <table cellpadding="0" cellspacing="0" style="background:#111827;border:1px solid #1E293B;width:100%;margin-bottom:4px;">
               <tr>
                 <td style="padding:18px 24px;">
-                  <span style="font-family:'Courier New',Courier,monospace;font-size:9px;color:#454560;letter-spacing:3px;text-transform:uppercase;display:block;margin-bottom:8px;">LAUNCH DATE</span>
-                  <span style="font-family:'Arial Black',Impact,Arial,sans-serif;font-size:26px;font-weight:900;color:#F5C518;letter-spacing:1px;">AUGUST 1, 2026</span>
+                  <span style="font-family:'Courier New',Courier,monospace;font-size:9px;color:#4A5568;letter-spacing:3px;text-transform:uppercase;display:block;margin-bottom:8px;">LAUNCH DATE</span>
+                  <span style="font-family:'Arial Black',Impact,Arial,sans-serif;font-size:26px;font-weight:900;color:#06B6D4;letter-spacing:1px;">AUGUST 1, 2026</span>
                 </td>
               </tr>
-              <tr><td style="height:2px;background:#F5C518;opacity:0.7;"></td></tr>
+              <tr><td style="height:2px;background:linear-gradient(90deg,#7C3AED,#06B6D4);"></td></tr>
             </table>
           </td>
         </tr>
@@ -59,37 +59,37 @@ const thankYouHtml = () => `<!DOCTYPE html>
         <!-- SERVICES PREVIEW -->
         <tr>
           <td style="padding:0 28px 32px;">
-            <div style="height:1px;background:#18182A;margin-bottom:24px;"></div>
-            <p style="font-family:'Courier New',Courier,monospace;font-size:9px;color:#F5C518;letter-spacing:3px;text-transform:uppercase;margin:0 0 16px 0;border:1px solid rgba(245,197,24,0.3);display:inline-block;padding:4px 10px;">WHAT WE BUILD</p>
+            <div style="height:1px;background:#1E293B;margin-bottom:24px;"></div>
+            <p style="font-family:'Courier New',Courier,monospace;font-size:9px;color:#06B6D4;letter-spacing:3px;text-transform:uppercase;margin:0 0 16px 0;border:1px solid rgba(6,182,212,0.3);display:inline-block;padding:4px 10px;">WHAT WE BUILD</p>
             <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
                 <td width="50%" style="padding:5px 0;">
-                  <span style="font-family:'Courier New',Courier,monospace;font-size:10px;color:#454560;">01</span>
-                  <span style="font-family:Arial,sans-serif;font-size:12px;color:#9898B0;padding-left:10px;">Business Websites</span>
+                  <span style="font-family:'Courier New',Courier,monospace;font-size:10px;color:#4A5568;">01</span>
+                  <span style="font-family:Arial,sans-serif;font-size:12px;color:#8B9CB0;padding-left:10px;">Business Websites</span>
                 </td>
                 <td width="50%" style="padding:5px 0;">
-                  <span style="font-family:'Courier New',Courier,monospace;font-size:10px;color:#454560;">02</span>
-                  <span style="font-family:Arial,sans-serif;font-size:12px;color:#9898B0;padding-left:10px;">E-commerce Stores</span>
-                </td>
-              </tr>
-              <tr>
-                <td width="50%" style="padding:5px 0;">
-                  <span style="font-family:'Courier New',Courier,monospace;font-size:10px;color:#454560;">03</span>
-                  <span style="font-family:Arial,sans-serif;font-size:12px;color:#9898B0;padding-left:10px;">SaaS Applications</span>
-                </td>
-                <td width="50%" style="padding:5px 0;">
-                  <span style="font-family:'Courier New',Courier,monospace;font-size:10px;color:#454560;">04</span>
-                  <span style="font-family:Arial,sans-serif;font-size:12px;color:#9898B0;padding-left:10px;">Admin Dashboards</span>
+                  <span style="font-family:'Courier New',Courier,monospace;font-size:10px;color:#4A5568;">02</span>
+                  <span style="font-family:Arial,sans-serif;font-size:12px;color:#8B9CB0;padding-left:10px;">E-commerce Stores</span>
                 </td>
               </tr>
               <tr>
                 <td width="50%" style="padding:5px 0;">
-                  <span style="font-family:'Courier New',Courier,monospace;font-size:10px;color:#454560;">05</span>
-                  <span style="font-family:Arial,sans-serif;font-size:12px;color:#9898B0;padding-left:10px;">API Integration</span>
+                  <span style="font-family:'Courier New',Courier,monospace;font-size:10px;color:#4A5568;">03</span>
+                  <span style="font-family:Arial,sans-serif;font-size:12px;color:#8B9CB0;padding-left:10px;">SaaS Applications</span>
                 </td>
                 <td width="50%" style="padding:5px 0;">
-                  <span style="font-family:'Courier New',Courier,monospace;font-size:10px;color:#454560;">06</span>
-                  <span style="font-family:Arial,sans-serif;font-size:12px;color:#9898B0;padding-left:10px;">Performance Optimization</span>
+                  <span style="font-family:'Courier New',Courier,monospace;font-size:10px;color:#4A5568;">04</span>
+                  <span style="font-family:Arial,sans-serif;font-size:12px;color:#8B9CB0;padding-left:10px;">Admin Dashboards</span>
+                </td>
+              </tr>
+              <tr>
+                <td width="50%" style="padding:5px 0;">
+                  <span style="font-family:'Courier New',Courier,monospace;font-size:10px;color:#4A5568;">05</span>
+                  <span style="font-family:Arial,sans-serif;font-size:12px;color:#8B9CB0;padding-left:10px;">API Integration</span>
+                </td>
+                <td width="50%" style="padding:5px 0;">
+                  <span style="font-family:'Courier New',Courier,monospace;font-size:10px;color:#4A5568;">06</span>
+                  <span style="font-family:Arial,sans-serif;font-size:12px;color:#8B9CB0;padding-left:10px;">Performance Optimization</span>
                 </td>
               </tr>
             </table>
@@ -98,10 +98,10 @@ const thankYouHtml = () => `<!DOCTYPE html>
 
         <!-- FOOTER -->
         <tr>
-          <td style="padding:16px 28px;border-top:1px solid #18182A;">
+          <td style="padding:16px 28px;border-top:1px solid #1E293B;">
             <table width="100%" cellpadding="0" cellspacing="0"><tr>
-              <td style="font-family:'Courier New',Courier,monospace;font-size:9px;color:#454560;letter-spacing:2px;text-transform:uppercase;">&#169; 2026 NEXIATA &middot; ALL RIGHTS RESERVED</td>
-              <td align="right"><a href="https://nexiata.com" style="font-family:'Courier New',Courier,monospace;font-size:9px;color:#454560;letter-spacing:2px;text-transform:uppercase;text-decoration:none;">NEXIATA.COM</a></td>
+              <td style="font-family:'Courier New',Courier,monospace;font-size:9px;color:#4A5568;letter-spacing:2px;text-transform:uppercase;">&#169; 2026 NEXIATA &middot; ALL RIGHTS RESERVED</td>
+              <td align="right"><a href="https://nexiata.com" style="font-family:'Courier New',Courier,monospace;font-size:9px;color:#4A5568;letter-spacing:2px;text-transform:uppercase;text-decoration:none;">NEXIATA.COM</a></td>
             </tr></table>
           </td>
         </tr>

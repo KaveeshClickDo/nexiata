@@ -4,8 +4,8 @@
   "description": "Web Engineering Agency: Launching August 1, 2026",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#04040A",
-  "theme_color": "#F5C518",
+  "background_color": "#070B14",
+  "theme_color": "#06B6D4",
   "icons": [
     {
       "src": "/favicon.svg",

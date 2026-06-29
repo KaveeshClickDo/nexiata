@@ -35,7 +35,7 @@
   <!-- Favicon & PWA -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#F5C518">
+  <meta name="theme-color" content="#06B6D4">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="NEXIATA">
@@ -48,15 +48,15 @@
 
   <style>
     :root {
-      --bg:        #04040A;
-      --bg-2:      #0B0B14;
-      --surface:   #0F0F1A;
-      --accent:    #F5C518;
-      --accent-2:  #FF3A00;
-      --green:     #00FF94;
+      --bg:        #070B14;
+      --bg-2:      #0D1322;
+      --surface:   #111827;
+      --accent:    #06B6D4;
+      --accent-2:  #7C3AED;
+      --green:     #00E5FF;
       --text:      #E8E8F0;
-      --text-dim:  #454560;
-      --border:    #18182A;
+      --text-dim:  #4A5568;
+      --border:    #1E293B;
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -90,8 +90,8 @@
     .grid-bg {
       position: fixed; inset: 0;
       background-image:
-        linear-gradient(rgba(245,197,24,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(245,197,24,0.025) 1px, transparent 1px);
+        linear-gradient(rgba(6,182,212,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6,182,212,0.025) 1px, transparent 1px);
       background-size: 64px 64px;
       pointer-events: none;
       z-index: 0;
@@ -111,7 +111,7 @@
       top: 50%; left: 50%;
       transform: translate(-50%,-50%);
       width: 700px; height: 400px;
-      background: radial-gradient(ellipse, rgba(245,197,24,0.05) 0%, transparent 70%);
+      background: radial-gradient(ellipse, rgba(6,182,212,0.06) 0%, transparent 70%);
       pointer-events: none;
       z-index: 1;
       animation: breathe 5s ease-in-out infinite;
@@ -121,7 +121,7 @@
       position: fixed;
       top: 80%; left: 20%;
       width: 400px; height: 400px;
-      background: radial-gradient(ellipse, rgba(255,58,0,0.04) 0%, transparent 70%);
+      background: radial-gradient(ellipse, rgba(124,58,237,0.05) 0%, transparent 70%);
       pointer-events: none;
       z-index: 1;
       animation: breathe 7s ease-in-out infinite reverse;
@@ -151,7 +151,7 @@
       letter-spacing: 14px;
       text-indent: 14px;
       color: var(--accent);
-      text-shadow: 0 0 60px rgba(245,197,24,0.6), 0 0 120px rgba(245,197,24,0.2);
+      text-shadow: 0 0 60px rgba(6,182,212,0.6), 0 0 120px rgba(6,182,212,0.2);
     }
 
     .boot-lines {
@@ -187,7 +187,7 @@
       position: absolute; top: 0; left: 0;
       height: 100%;
       background: var(--accent);
-      box-shadow: 0 0 12px var(--accent), 0 0 30px rgba(245,197,24,0.4);
+      box-shadow: 0 0 12px var(--accent), 0 0 30px rgba(6,182,212,0.4);
       width: 0%;
       transition: width 2.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -400,7 +400,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       padding: 10px 14px 8px;
-      text-shadow: 0 0 40px rgba(245,197,24,0.5);
+      text-shadow: 0 0 40px rgba(6,182,212,0.5);
       position: relative;
       overflow: hidden;
     }
@@ -483,7 +483,7 @@
     }
 
     .notify-input::placeholder { color: var(--text-dim); }
-    .notify-input:focus { border-color: rgba(245,197,24,0.4); }
+    .notify-input:focus { border-color: rgba(6,182,212,0.4); }
 
     .notify-btn {
       background: var(--accent);
@@ -500,7 +500,7 @@
       white-space: nowrap;
     }
 
-    .notify-btn:hover  { background: #e8b800; }
+    .notify-btn:hover  { background: #05a0ba; }
     .notify-btn:active { transform: scale(0.98); }
 
     .notify-msg {
@@ -532,7 +532,7 @@
       color: var(--accent);
       letter-spacing: 3px;
       text-transform: uppercase;
-      border: 1px solid rgba(245,197,24,0.3);
+      border: 1px solid rgba(6,182,212,0.3);
       padding: 5px 12px;
       white-space: nowrap;
     }
@@ -687,7 +687,7 @@
       color: var(--accent);
       letter-spacing: 4px;
       text-transform: uppercase;
-      border-left: 2px solid rgba(245,197,24,0.45);
+      border-left: 2px solid rgba(6,182,212,0.45);
     }
 
     /* ─── FEATURES ─── */
@@ -942,7 +942,8 @@
       <span>© 2026 NEXIATA · ALL RIGHTS RESERVED</span>
       <div class="bot-links">
         <a href="mailto:hello@nexiata.com">hello@nexiata.com</a>
-        <span>nexiata.com</span>
+        <a href="https://www.linkedin.com/company/nexiata-solutions" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.facebook.com/profile.php?id=61589280395246" target="_blank" rel="noopener">Facebook</a>
       </div>
     </div>
 
