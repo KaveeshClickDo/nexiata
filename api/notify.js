@@ -196,17 +196,29 @@ export default async function handler(req, res) {
       return res.status(502).json({ error: 'Notification failed' });
     }
 
-    // 2. Thank-you email to subscriber — non-blocking, failure doesn't affect the response
-    fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        from:    'NEXIATA <hello@nexiata.com>',
-        to:      [email],
-        subject: 'NEXIATA: You are on the list',
-        html:    thankYouHtml(),
-      }),
-    }).catch(err => console.error('Thank-you email failed (non-critical):', err));
+    // 2. Thank-you email to subscriber.
+    //    MUST be awaited: in a serverless function the instance is frozen the
+    //    moment we return the response, so a fire-and-forget fetch never sends.
+    //    Failure here is logged but does not fail the request (owners are already
+    //    notified above).
+    try {
+      const tyRes = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          from:    'NEXIATA <hello@nexiata.com>',
+          to:      [email],
+          subject: 'NEXIATA: You are on the list',
+          html:    thankYouHtml(),
+        }),
+      });
+      if (!tyRes.ok) {
+        const body = await tyRes.json().catch(() => ({}));
+        console.error('Thank-you email error:', body);
+      }
+    } catch (err) {
+      console.error('Thank-you email failed (non-critical):', err);
+    }
 
     return res.status(200).json({ success: true });
   } catch (err) {
