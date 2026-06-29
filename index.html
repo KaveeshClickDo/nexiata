@@ -62,7 +62,7 @@
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
     body {
       background: var(--bg);
@@ -679,16 +679,18 @@
       .top-bar .tb-mid { display: none; }
       .hero { padding: 40px 20px 36px; }
       .eye-brow::before, .eye-brow::after { width: 20px; }
-      .hud-frame { padding: 16px 28px; }
+      .hud-frame { padding: 16px 20px; }
       .cd-num { min-width: 72px; }
       .services-wrap { padding: 0 20px 60px; }
       .bot-bar { padding: 12px 20px; flex-direction: column; gap: 10px; text-align: center; }
       .side-txt, .c-hud { display: none; }
+      .title-n-img { height: clamp(52px, 14vw, 72px); }
     }
 
     @media (max-width: 400px) {
       .cd-num { min-width: 58px; padding: 8px 10px 6px; }
       .countdown { gap: 3px; }
+      .title-n-img { height: 48px; }
       .cd-colon { padding: 8px 0 6px; }
     }
 
