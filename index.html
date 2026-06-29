@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Primary SEO -->
-  <title>NEXIATA — Web Engineering Agency | Launching August 1, 2026</title>
+  <title>NEXIATA: Web Engineering Agency | Launching August 1, 2026</title>
   <meta name="description" content="NEXIATA is a premium web engineering agency launching August 1, 2026. Business websites, portfolios, e-commerce stores, admin dashboards, API integrations and more.">
   <meta name="keywords" content="web engineering, business websites, portfolio website, e-commerce development, admin dashboard, website redesign, API integration, web development agency, nexiata">
   <meta name="author" content="NEXIATA">
@@ -16,20 +16,20 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://nexiata.com/">
   <meta property="og:site_name" content="NEXIATA">
-  <meta property="og:title" content="NEXIATA — Web Engineering Agency | Launching August 1, 2026">
+  <meta property="og:title" content="NEXIATA: Web Engineering Agency | Launching August 1, 2026">
   <meta property="og:description" content="Premium web engineering agency launching August 1, 2026. Business websites, portfolios, e-commerce, dashboards and more.">
   <meta property="og:image" content="https://nexiata.com/og-image.svg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="NEXIATA — Web Engineering Agency, Launching August 1, 2026">
+  <meta property="og:image:alt" content="NEXIATA: Web Engineering Agency, Launching August 1, 2026">
   <meta property="og:locale" content="en_US">
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="NEXIATA — Web Engineering Agency | Launching August 1, 2026">
+  <meta name="twitter:title" content="NEXIATA: Web Engineering Agency | Launching August 1, 2026">
   <meta name="twitter:description" content="Premium web engineering agency launching August 1, 2026. Business websites, portfolios, e-commerce, dashboards and more.">
   <meta name="twitter:image" content="https://nexiata.com/og-image.svg">
-  <meta name="twitter:image:alt" content="NEXIATA — Web Engineering Agency">
+  <meta name="twitter:image:alt" content="NEXIATA: Web Engineering Agency">
 
   <!-- Favicon & PWA -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -806,7 +806,7 @@
         "@id": "https://nexiata.com/#website",
         "url": "https://nexiata.com",
         "name": "NEXIATA",
-        "description": "NEXIATA — Premium web engineering agency. Launching August 1, 2026.",
+        "description": "NEXIATA: Premium web engineering agency. Launching August 1, 2026.",
         "publisher": { "@id": "https://nexiata.com/#organization" }
       }
     ]
@@ -832,8 +832,8 @@
   <div class="glow-2"></div>
 
   <!-- ====== FIXED DECO ====== -->
-  <div class="side-txt l">NEXIATA.COM ─ WEB ENGINEERING</div>
-  <div class="side-txt r">STATUS: INCOMING ─ 2026</div>
+  <div class="side-txt l">NEXIATA.COM // WEB ENGINEERING</div>
+  <div class="side-txt r">STATUS: INCOMING // 2026</div>
   <div class="c-hud tl">SYS://ACTIVE<br>NEXIATA.COM</div>
   <div class="c-hud tr">SECTOR: WEB<br>CLASS: AGENCY</div>
 
@@ -860,7 +860,7 @@
         <span class="title" data-text="NEXIATA">NEXIATA</span>
       </div>
 
-      <div class="sub-title">Web Engineering — Coming Soon</div>
+      <div class="sub-title">Web Engineering // Coming Soon</div>
 
       <!-- COUNTDOWN -->
       <div class="cd-section">
@@ -928,7 +928,7 @@
 
     <!-- BOTTOM BAR -->
     <div class="bot-bar">
-      <span>© 2026 NEXIATA — ALL RIGHTS RESERVED</span>
+      <span>© 2026 NEXIATA · ALL RIGHTS RESERVED</span>
       <div class="bot-links">
         <a href="mailto:hello@nexiata.com">hello@nexiata.com</a>
         <span>nexiata.com</span>
@@ -981,12 +981,11 @@
     /* ─── FEATURES ─── */
     const FEATURES = [
       'Mobile-Friendly Design',    'Technical SEO Optimization',  'Core Web Vitals Optimization',
-      'Image Optimization',        'Performance Optimization',     'Fast Loading Speed',
-      'Secure Authentication',     'Contact Forms',                'Google Maps Integration',
-      'WhatsApp Chat Integration', 'Social Media Integration',     'Newsfeed Integration',
-      'Subscription Integration',  'Client-Friendly Advertisements','Analytics Setup',
-      'Clean & Maintainable Code', 'Professional Full-Stack Development',
-      'Reliable Cloud Hosting',    'Scalable Architecture',
+      'Image Optimization',        'Fast Loading Speed',           'Secure Authentication',
+      'Contact Forms',             'Google Maps Integration',      'WhatsApp Chat Integration',
+      'Social Media Integration',  'Newsfeed Integration',         'Subscription Integration',
+      'Client-Friendly Advertisements', 'Analytics Setup',         'Clean & Maintainable Code',
+      'Professional Full-Stack Development', 'Reliable Cloud Hosting', 'Scalable Architecture',
     ];
 
     const featGrid = document.getElementById('feat-grid');
@@ -1050,17 +1049,51 @@
     countdown();
 
     /* ─── NOTIFY ─── */
-    function doNotify() {
-      const email = document.getElementById('n-email').value.trim();
-      const msg   = document.getElementById('n-msg');
+    let notifySubmitted = false;
+
+    async function doNotify() {
+      if (notifySubmitted) return;
+
+      const emailEl = document.getElementById('n-email');
+      const btn     = document.querySelector('.notify-btn');
+      const msg     = document.getElementById('n-msg');
+      const email   = emailEl.value.trim();
+
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         msg.style.color = 'var(--accent-2)';
-        msg.textContent  = '// INVALID SIGNAL — CHECK YOUR EMAIL';
+        msg.textContent = '// INVALID SIGNAL: CHECK YOUR EMAIL';
         return;
       }
-      msg.style.color  = 'var(--accent)';
-      msg.textContent  = '// CONFIRMED — YOU\'LL BE FIRST ON TARGET';
-      document.getElementById('n-email').value = '';
+
+      btn.disabled     = true;
+      emailEl.disabled = true;
+      btn.textContent  = 'SENDING...';
+      msg.style.color  = 'var(--text-dim)';
+      msg.textContent  = '// TRANSMITTING...';
+
+      try {
+        const res = await fetch('/api/notify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+
+        if (res.ok) {
+          notifySubmitted = true;
+          emailEl.value   = '';
+          btn.textContent = 'SUBSCRIBED';
+          msg.style.color = 'var(--green)';
+          msg.textContent = '// CONFIRMED: YOU\'LL BE FIRST ON TARGET';
+        } else {
+          throw new Error('server');
+        }
+      } catch {
+        btn.disabled     = false;
+        emailEl.disabled = false;
+        btn.textContent  = 'NOTIFY ME';
+        msg.style.color  = 'var(--accent-2)';
+        msg.textContent  = '// TRANSMISSION FAILED: TRY AGAIN';
+      }
     }
 
     /* ─── BOOT SEQUENCE ─── */
@@ -1071,7 +1104,7 @@
       { text: 'Verifying SSL certificates...',        cls: 'ok',  t: 1350 },
       { text: 'Checking DNS configuration...',        cls: 'ok',  t: 1650 },
       { text: 'Staging build pipeline...',            cls: 'ok',  t: 1950 },
-      { text: 'Environment ready — standby...',       cls: 'ok',  t: 2200 },
+      { text: 'Environment ready, standby...',          cls: 'ok',  t: 2200 },
     ];
 
     const bootLines = document.getElementById('boot-lines');
