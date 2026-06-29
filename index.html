@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NEXIATA — Web Engineering. Coming Soon.">
+  <title>NEXIATA — INCOMING</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:        #04040A;
+      --bg-2:      #0B0B14;
+      --surface:   #0F0F1A;
+      --accent:    #F5C518;
+      --accent-2:  #FF3A00;
+      --green:     #00FF94;
+      --text:      #E8E8F0;
+      --text-dim:  #454560;
+      --border:    #18182A;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── SCANLINES ─── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.07) 2px,
+        rgba(0,0,0,0.07) 4px
+      );
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ─── GRID BACKGROUND ─── */
+    .grid-bg {
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(245,197,24,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245,197,24,0.025) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── VIGNETTE ─── */
+    .vignette {
+      position: fixed; inset: 0;
+      background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.9) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ─── AMBIENT GLOW ─── */
+    .glow {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 700px; height: 400px;
+      background: radial-gradient(ellipse, rgba(245,197,24,0.05) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+      animation: breathe 5s ease-in-out infinite;
+    }
+
+    .glow-2 {
+      position: fixed;
+      top: 80%; left: 20%;
+      width: 400px; height: 400px;
+      background: radial-gradient(ellipse, rgba(255,58,0,0.04) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+      animation: breathe 7s ease-in-out infinite reverse;
+    }
+
+    @keyframes breathe {
+      0%,100% { opacity: 0.6; transform: translate(-50%,-50%) scale(1); }
+      50%      { opacity: 1;   transform: translate(-50%,-50%) scale(1.15); }
+    }
+
+    /* ─────────────────────────── BOOT SCREEN ─────────────────────────── */
+    #boot {
+      position: fixed; inset: 0;
+      background: var(--bg);
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+    }
+
+    .boot-brand {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: 14px;
+      text-indent: 14px;
+      color: var(--accent);
+      text-shadow: 0 0 60px rgba(245,197,24,0.6), 0 0 120px rgba(245,197,24,0.2);
+    }
+
+    .boot-lines {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      width: 360px;
+      min-height: 110px;
+      line-height: 1.9;
+    }
+
+    .boot-lines .line { display: block; }
+    .boot-lines .line.ok::after  { content: ' [OK]';    color: var(--green); }
+    .boot-lines .line.err::after { content: ' [ERROR]'; color: var(--accent-2); }
+
+    .boot-progress-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      width: 360px;
+    }
+
+    .boot-bar {
+      width: 360px; height: 2px;
+      background: var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .boot-bar-fill {
+      position: absolute; top: 0; left: 0;
+      height: 100%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent), 0 0 30px rgba(245,197,24,0.4);
+      width: 0%;
+      transition: width 2.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ─────────────────────────── MAIN ─────────────────────────── */
+    #main {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    #main.visible { opacity: 1; }
+
+    /* ─── TOP BAR ─── */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 40px;
+      border-bottom: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .tb-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .blink-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent-2);
+      box-shadow: 0 0 8px var(--accent-2);
+      animation: dot-blink 1.2s ease-in-out infinite;
+    }
+
+    @keyframes dot-blink {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0.15; }
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 64px 32px 48px;
+      gap: 0;
+    }
+
+    .eye-brow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--accent-2);
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .eye-brow::before,
+    .eye-brow::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--accent-2);
+      opacity: 0.4;
+    }
+
+    /* ─── TITLE ─── */
+    .hud-frame {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 48px;
+      margin-bottom: 4px;
+    }
+
+    /* corner brackets */
+    .hud-frame::before, .hud-frame::after,
+    .hud-frame .c1, .hud-frame .c2, .hud-frame .c3, .hud-frame .c4 {
+      content: '';
+      position: absolute;
+      width: 22px; height: 22px;
+      border-color: var(--accent);
+      border-style: solid;
+      opacity: 0.7;
+    }
+    .hud-frame .c1 { top:0;    left:0;  border-width: 2px 0 0 2px; }
+    .hud-frame .c2 { top:0;    right:0; border-width: 2px 2px 0 0; }
+    .hud-frame .c3 { bottom:0; left:0;  border-width: 0 0 2px 2px; }
+    .hud-frame .c4 { bottom:0; right:0; border-width: 0 2px 2px 0; }
+    .hud-frame::before { display:none; }
+    .hud-frame::after  { display:none; }
+
+    .title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(76px, 18vw, 192px);
+      font-weight: 900;
+      line-height: 0.85;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+      color: var(--text);
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Glitch */
+    .title::before,
+    .title::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      font-family: inherit; font-size: inherit;
+      font-weight: inherit; letter-spacing: inherit;
+    }
+    .title::before {
+      color: var(--accent-2);
+      clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%);
+      animation: g1 6s infinite;
+    }
+    .title::after {
+      color: var(--accent);
+      clip-path: polygon(0 70%, 100% 70%, 100% 100%, 0 100%);
+      animation: g2 6s infinite;
+    }
+
+    @keyframes g1 {
+      0%,85%,100% { transform: none; opacity: 0; }
+      86%  { transform: translate(-5px,-2px); opacity: 0.9; }
+      88%  { transform: translate(5px, 2px);  opacity: 0.9; }
+      90%  { transform: translate(-3px,1px);  opacity: 0.5; }
+      92%  { transform: none; opacity: 0; }
+      96%  { transform: translate(2px,-1px);  opacity: 0.6; }
+      98%  { transform: none; opacity: 0; }
+    }
+    @keyframes g2 {
+      0%,82%,100% { transform: none; opacity: 0; }
+      83%  { transform: translate(5px, 2px);  opacity: 0.9; }
+      85%  { transform: translate(-5px,-2px); opacity: 0.9; }
+      87%  { transform: translate(3px,-1px);  opacity: 0.5; }
+      89%  { transform: none; opacity: 0; }
+      93%  { transform: translate(-2px,1px);  opacity: 0.6; }
+      95%  { transform: none; opacity: 0; }
+    }
+
+    .sub-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(13px, 2vw, 15px);
+      font-weight: 400;
+      color: var(--text-dim);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-top: 20px;
+      margin-bottom: 56px;
+    }
+
+    /* ─── COUNTDOWN ─── */
+    .cd-section {
+      margin-bottom: 56px;
+    }
+
+    .cd-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--accent-2);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .cd-tag::before { content: '▶  '; }
+
+    .countdown {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .cd-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cd-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(44px, 9vw, 80px);
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      min-width: 100px;
+      text-align: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 10px 14px 8px;
+      text-shadow: 0 0 40px rgba(245,197,24,0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* bottom glow line */
+    .cd-num::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    .cd-unit {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .cd-colon {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(44px, 9vw, 80px);
+      font-weight: 800;
+      color: var(--border);
+      line-height: 1;
+      padding: 10px 0 8px;
+      animation: colon-blink 1s step-end infinite;
+    }
+
+    @keyframes colon-blink {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0.15; }
+    }
+
+    /* ─── NOTIFY ─── */
+    .notify-wrap {
+      max-width: 460px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .notify-lbl {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .notify-row {
+      display: flex;
+      width: 100%;
+    }
+
+    .notify-input {
+      flex: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-right: none;
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      padding: 13px 18px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .notify-input::placeholder { color: var(--text-dim); }
+    .notify-input:focus { border-color: rgba(245,197,24,0.4); }
+
+    .notify-btn {
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      color: #000;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 13px 28px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+
+    .notify-btn:hover  { background: #e8b800; }
+    .notify-btn:active { transform: scale(0.98); }
+
+    .notify-msg {
+      height: 22px;
+      margin-top: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    /* ─── SERVICES ─── */
+    .services-wrap {
+      max-width: 960px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+
+    .sec-head {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    .sec-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      border: 1px solid rgba(245,197,24,0.3);
+      padding: 5px 12px;
+      white-space: nowrap;
+    }
+
+    .sec-line { flex: 1; height: 1px; background: var(--border); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      background: var(--border);
+      gap: 1px;
+      border: 1px solid var(--border);
+    }
+
+    .svc {
+      background: var(--bg-2);
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: default;
+      transition: background 0.18s;
+      position: relative;
+    }
+
+    .svc::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0%; height: 1px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .svc:hover {
+      background: var(--surface);
+    }
+
+    .svc:hover::after { width: 100%; }
+    .svc:hover .svc-n { color: var(--accent); }
+    .svc:hover .svc-arrow { color: var(--accent); }
+
+    .svc-n {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+      min-width: 24px;
+      transition: color 0.18s;
+    }
+
+    .svc-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: 0.4px;
+      flex: 1;
+    }
+
+    .svc-arrow {
+      font-size: 9px;
+      color: var(--border);
+      transition: color 0.18s;
+    }
+
+    /* ─── BOTTOM BAR ─── */
+    .bot-bar {
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 40px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .bot-links { display: flex; gap: 28px; }
+
+    .bot-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .bot-links a:hover { color: var(--accent); }
+
+    /* ─── FIXED SIDE DECO ─── */
+    .side-txt {
+      position: fixed;
+      top: 50%;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      z-index: 20;
+      writing-mode: vertical-lr;
+    }
+
+    .side-txt.l {
+      left: 22px;
+      transform: translateY(-50%) rotate(180deg);
+    }
+
+    .side-txt.r {
+      right: 22px;
+      transform: translateY(-50%);
+    }
+
+    /* ─── CORNER MINI-HUD ─── */
+    .c-hud {
+      position: fixed;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+      letter-spacing: 2px;
+      line-height: 1.8;
+      z-index: 20;
+    }
+    .c-hud.tl { top: 72px; left: 40px; }
+    .c-hud.tr { top: 72px; right: 40px; text-align: right; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 700px) {
+      .top-bar { padding: 12px 20px; font-size: 9px; }
+      .top-bar .tb-mid { display: none; }
+      .hero { padding: 40px 20px 36px; }
+      .eye-brow::before, .eye-brow::after { width: 20px; }
+      .hud-frame { padding: 16px 28px; }
+      .cd-num { min-width: 72px; }
+      .services-wrap { padding: 0 20px 60px; }
+      .bot-bar { padding: 12px 20px; flex-direction: column; gap: 10px; text-align: center; }
+      .side-txt, .c-hud { display: none; }
+    }
+
+    @media (max-width: 400px) {
+      .cd-num { min-width: 58px; padding: 8px 10px 6px; }
+      .countdown { gap: 3px; }
+      .cd-colon { padding: 8px 0 6px; }
+    }
+
+    /* ─── REDUCED MOTION ─── */
+    @media (prefers-reduced-motion: reduce) {
+      .title::before, .title::after { animation: none; }
+      .blink-dot, .colon-blink, .breathe { animation: none; }
+      .glow, .glow-2 { animation: none; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ====== BOOT SCREEN ====== -->
+  <div id="boot">
+    <div class="boot-brand">NEXIATA</div>
+    <div class="boot-lines" id="boot-lines"></div>
+    <div class="boot-progress-label">System Initialization...</div>
+    <div class="boot-bar">
+      <div class="boot-bar-fill" id="boot-fill"></div>
+    </div>
+  </div>
+
+  <!-- ====== BACKGROUND ====== -->
+  <div class="grid-bg"></div>
+  <div class="vignette"></div>
+  <div class="glow"></div>
+  <div class="glow-2"></div>
+
+  <!-- ====== FIXED DECO ====== -->
+  <div class="side-txt l">NEXIATA.COM ─ WEB ENGINEERING</div>
+  <div class="side-txt r">STATUS: INCOMING ─ 2026</div>
+  <div class="c-hud tl">SYS://ACTIVE<br>NEXIATA.COM</div>
+  <div class="c-hud tr">SECTOR: WEB<br>CLASS: AGENCY</div>
+
+  <!-- ====== MAIN ====== -->
+  <div id="main">
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+      <div class="tb-status">
+        <div class="blink-dot"></div>
+        <span>TRANSMISSION INCOMING</span>
+      </div>
+      <span class="tb-mid">NEXIATA SYSTEMS // EST. 2026</span>
+      <span id="clock">00:00:00 UTC</span>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="eye-brow">MISSION STATUS: STANDBY</div>
+
+      <div class="hud-frame">
+        <div class="c1"></div><div class="c2"></div>
+        <div class="c3"></div><div class="c4"></div>
+        <span class="title" data-text="NEXIATA">NEXIATA</span>
+      </div>
+
+      <div class="sub-title">Web Engineering — Coming Soon</div>
+
+      <!-- COUNTDOWN -->
+      <div class="cd-section">
+        <div class="cd-tag">OPS COUNTDOWN</div>
+        <div class="countdown">
+          <div class="cd-block">
+            <div class="cd-num" id="cd-d">00</div>
+            <div class="cd-unit">DAYS</div>
+          </div>
+          <div class="cd-colon">:</div>
+          <div class="cd-block">
+            <div class="cd-num" id="cd-h">00</div>
+            <div class="cd-unit">HRS</div>
+          </div>
+          <div class="cd-colon">:</div>
+          <div class="cd-block">
+            <div class="cd-num" id="cd-m">00</div>
+            <div class="cd-unit">MIN</div>
+          </div>
+          <div class="cd-colon">:</div>
+          <div class="cd-block">
+            <div class="cd-num" id="cd-s">00</div>
+            <div class="cd-unit">SEC</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NOTIFY -->
+      <div class="notify-wrap">
+        <div class="notify-lbl">Get notified on launch</div>
+        <div class="notify-row">
+          <input class="notify-input" id="n-email" type="email" placeholder="your@email.com">
+          <button class="notify-btn" onclick="doNotify()">NOTIFY ME</button>
+        </div>
+        <div class="notify-msg" id="n-msg"></div>
+      </div>
+    </div>
+
+    <!-- SERVICES -->
+    <div class="services-wrap">
+      <div class="sec-head">
+        <div class="sec-tag">Mission Objectives</div>
+        <div class="sec-line"></div>
+      </div>
+      <div class="services-grid" id="svc-grid"></div>
+    </div>
+
+    <!-- BOTTOM BAR -->
+    <div class="bot-bar">
+      <span>© 2026 NEXIATA — ALL RIGHTS RESERVED</span>
+      <div class="bot-links">
+        <a href="mailto:hello@nexiata.com">hello@nexiata.com</a>
+        <span>nexiata.com</span>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+
+  <script>
+    /* ─── SERVICES ─── */
+    const SERVICES = [
+      'Business Websites',
+      'Portfolio Websites',
+      'Landing Pages',
+      'E-commerce Websites',
+      'Admin Dashboards',
+      'Blog & CMS Integration',
+      'Website Redesign',
+      'API Integration',
+      'Performance Optimization',
+      'Website Maintenance',
+    ];
+
+    const grid = document.getElementById('svc-grid');
+    SERVICES.forEach((s, i) => {
+      const n = String(i + 1).padStart(2, '0');
+      const el = document.createElement('div');
+      el.className = 'svc';
+      el.innerHTML =
+        `<span class="svc-n">${n}</span>` +
+        `<span class="svc-name">${s}</span>` +
+        `<span class="svc-arrow">▶</span>`;
+      grid.appendChild(el);
+    });
+
+    /* ─── CLOCK ─── */
+    const clockEl = document.getElementById('clock');
+    function tick() {
+      const n = new Date();
+      const p = v => String(v).padStart(2, '0');
+      clockEl.textContent = `${p(n.getUTCHours())}:${p(n.getUTCMinutes())}:${p(n.getUTCSeconds())} UTC`;
+    }
+    setInterval(tick, 1000);
+    tick();
+
+    /* ─── COUNTDOWN ─── */
+    // Update this date to your actual launch date
+    const LAUNCH = new Date('2026-09-15T00:00:00Z');
+
+    const cdD = document.getElementById('cd-d');
+    const cdH = document.getElementById('cd-h');
+    const cdM = document.getElementById('cd-m');
+    const cdS = document.getElementById('cd-s');
+
+    function countdown() {
+      const diff = LAUNCH - Date.now();
+      if (diff <= 0) {
+        cdD.textContent = cdH.textContent = cdM.textContent = cdS.textContent = '00';
+        return;
+      }
+      const p = v => String(v).padStart(2, '0');
+      cdD.textContent = p(Math.floor(diff / 864e5));
+      cdH.textContent = p(Math.floor(diff / 36e5) % 24);
+      cdM.textContent = p(Math.floor(diff / 6e4) % 60);
+      cdS.textContent = p(Math.floor(diff / 1e3) % 60);
+    }
+    setInterval(countdown, 1000);
+    countdown();
+
+    /* ─── NOTIFY ─── */
+    function doNotify() {
+      const email = document.getElementById('n-email').value.trim();
+      const msg   = document.getElementById('n-msg');
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        msg.style.color = 'var(--accent-2)';
+        msg.textContent  = '// INVALID SIGNAL — CHECK YOUR EMAIL';
+        return;
+      }
+      msg.style.color  = 'var(--accent)';
+      msg.textContent  = '// CONFIRMED — YOU\'LL BE FIRST ON TARGET';
+      document.getElementById('n-email').value = '';
+    }
+
+    /* ─── BOOT SEQUENCE ─── */
+    const LOG = [
+      { text: 'Initializing NEXIATA core engine...', cls: 'ok',  t: 250  },
+      { text: 'Loading web deployment modules...',   cls: 'ok',  t: 650  },
+      { text: 'Connecting to production servers...',  cls: 'ok',  t: 1050 },
+      { text: 'Verifying SSL certificates...',        cls: 'ok',  t: 1350 },
+      { text: 'Checking DNS configuration...',        cls: 'ok',  t: 1650 },
+      { text: 'Staging build pipeline...',            cls: 'ok',  t: 1950 },
+      { text: 'Environment ready — standby...',       cls: 'ok',  t: 2200 },
+    ];
+
+    const bootLines = document.getElementById('boot-lines');
+    const bootFill  = document.getElementById('boot-fill');
+    const bootEl    = document.getElementById('boot');
+    const mainEl    = document.getElementById('main');
+
+    LOG.forEach(({ text, cls, t }) => {
+      setTimeout(() => {
+        const s = document.createElement('span');
+        s.className = 'line ' + cls;
+        s.textContent = text;
+        bootLines.appendChild(s);
+      }, t);
+    });
+
+    // Start progress bar
+    requestAnimationFrame(() => {
+      bootFill.style.width = '100%';
+    });
+
+    // Fade out boot, reveal main
+    setTimeout(() => {
+      bootEl.style.transition = 'opacity 0.7s ease';
+      bootEl.style.opacity = '0';
+      setTimeout(() => {
+        bootEl.style.display = 'none';
+        mainEl.classList.add('visible');
+      }, 700);
+    }, 2900);
+
+  </script>
+</body>
+</html>
