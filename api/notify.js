@@ -23,13 +23,13 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from:     process.env.FROM_EMAIL ?? 'NEXIATA <onboarding@resend.dev>',
+        from:     'NEXIATA <hello@nexiata.com>',
         to:      [
           'hello@nexiata.com',
           'khsenevirathne@gmail.com',
           'thenexiata@gmail.com',
         ],
-        subject: 'NEXIATA — New launch subscriber',
+        subject: 'NEXIATA: New launch subscriber',
         html:    `<p>New subscriber signed up for the NEXIATA launch:</p><p><strong>${email}</strong></p>`,
         reply_to: email,
       }),
